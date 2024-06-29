@@ -3,7 +3,7 @@
 ********************************************************/
 // Copyright (c) 2013,19 MiSTer-X
 
-module FPGA_GreenBeret
+module greenberet
 (
 	input				clk48M,
 	input				reset,
