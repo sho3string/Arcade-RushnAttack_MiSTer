@@ -101,11 +101,30 @@ module LineBuf
 	input				RCL,
 	input				RWE,
 	input  [9:0]	RAD,
-	output [3:0]	RDT
+	output reg [3:0]	RDT
 );
 
 wire [3:0] dum;
 
+reg [10:0] ram[0:1023];
+
+always @(posedge RCL) begin
+	if(RWE) begin
+		ram[RAD] <= 0;
+		RDT <= 0;
+	end
+	else begin
+		RDT <= ram[RAD];
+	end
+end
+
+always @(posedge WCL) begin
+	if(WEN) begin
+		ram[WAD] <= WDT;
+	end
+end
+
+/*
 DPRAM1024_4 ramcore
 (
 	WAD, RAD,
@@ -113,7 +132,7 @@ DPRAM1024_4 ramcore
 	WDT, 4'h0,
 	WEN, RWE,
 	dum, RDT
-);
+);*/
 
 endmodule
 
