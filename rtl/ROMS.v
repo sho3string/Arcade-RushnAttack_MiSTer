@@ -1,6 +1,6 @@
 // Copyright (c) 2019 MiSTer-X
 
-module DLROM #(parameter AW,parameter DW)
+module DLROM #(parameter AW=0,parameter DW=0)
 (
 	input							CL0,
 	input [(AW-1):0]			AD0,
@@ -15,7 +15,7 @@ module DLROM #(parameter AW,parameter DW)
 reg [(DW-1):0] core[0:((2**AW)-1)];
 
 always @(posedge CL0) DO0 <= core[AD0];
-always @(posedge CL1) if (WE1) core[AD1] <= DI1;
+always @(negedge CL1) if (WE1) core[AD1] <= DI1;
 
 endmodule
 
